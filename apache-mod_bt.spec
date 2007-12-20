@@ -33,6 +33,7 @@ BuildRequires:	php-devel
 BuildRequires:	php-cli
 BuildRequires:	pkgconfig
 BuildRequires:	file
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 mod_bt is a BitTorrent tracker for the Apache Web server. It is written in C

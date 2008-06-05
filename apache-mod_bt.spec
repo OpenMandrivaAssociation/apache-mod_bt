@@ -131,7 +131,7 @@ find src examples -type f | xargs perl -pi -e "s|Net::BitTorrent::LibBTT|Net::Bi
 #libtoolize --copy --force; aclocal-1.7; autoconf; automake-1.7 --add-missing --gnu
 #autoreconf
 
-#%%configure2_5x \
+#%%configure2_5x --localstatedir=/var/lib \
 #    --with-apxs=%{_sbindir}/apxs \
 #    --with-xml-prefix=%{_prefix} \
 #    --with-bdb=%{_prefix} \
@@ -156,7 +156,7 @@ export CPPFLAGS=`$APR --cppflags`
 	--includedir=%{_includedir} \
 	--libdir=%{_libdir} \
 	--libexecdir=%{_libexecdir} \
-	--localstatedir=%{_localstatedir}/lib \
+	--localstatedir=/var/lib \
 	--sharedstatedir=%{_sharedstatedir} \
 	--mandir=%{_mandir} \
 	--infodir=%{_infodir} \

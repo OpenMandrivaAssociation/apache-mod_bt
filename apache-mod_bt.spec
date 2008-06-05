@@ -7,7 +7,7 @@
 Summary:	BitTorrent tracker for the Apache2 web server
 Name:		apache-%{mod_name}
 Version:	0.0.19
-Release:	%mkrel 8
+Release:	%mkrel 9
 Group:		System/Servers
 License:	GPL
 URL:		http://www.crackerjack.net/mod_bt/

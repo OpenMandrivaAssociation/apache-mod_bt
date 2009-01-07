@@ -7,13 +7,14 @@
 Summary:	BitTorrent tracker for the Apache2 web server
 Name:		apache-%{mod_name}
 Version:	0.0.19
-Release:	%mkrel 10
+Release:	%mkrel 11
 Group:		System/Servers
 License:	GPL
 URL:		http://www.crackerjack.net/mod_bt/
 Source0:	http://www.crackerjack.net/mod_bt/%{mod_name}-%{version}.tar.bz2
 Source1:	%{mod_conf}
 Patch0:		mod_bt-we_are_at_apr1.diff
+Patch1:		mod_bt-0.0.19-bdb47_fix.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -109,6 +110,7 @@ files.
 
 %setup -q -n %{mod_name}-%{version}
 %patch0 -p0
+%patch1 -p0
 
 cp %{SOURCE1} %{mod_conf}
 

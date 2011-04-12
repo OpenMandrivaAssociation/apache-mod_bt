@@ -7,7 +7,7 @@
 Summary:	BitTorrent tracker for the Apache2 web server
 Name:		apache-%{mod_name}
 Version:	0.0.19
-Release:	%mkrel 20
+Release:	%mkrel 21
 Group:		System/Servers
 License:	Apache License
 URL:		http://www.crackerjack.net/mod_bt/
@@ -15,6 +15,8 @@ Source0:	http://www.crackerjack.net/mod_bt/%{mod_name}-%{version}.tar.bz2
 Source1:	%{mod_conf}
 Patch0:		mod_bt-we_are_at_apr1.diff
 Patch1:		mod_bt-0.0.19-bdb47_fix.diff
+Patch2:		mod_bt-0.0.19-db5.patch
+Patch3:		mod_bt-0.0.19-fix-str-fmt.patch
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -23,10 +25,8 @@ Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 BuildRequires:	apache-mod_perl-devel
-#BuildRequires:	autoconf2.5
-#BuildRequires:	automake1.7
 BuildRequires:	libxml2-devel
-BuildRequires:	db4-devel
+BuildRequires:	db-devel
 BuildRequires:	perl
 BuildRequires:	perl-devel
 BuildRequires:	libtool
@@ -111,6 +111,8 @@ files.
 %setup -q -n %{mod_name}-%{version}
 %patch0 -p0
 %patch1 -p0
+%patch2 -p0
+%patch3 -p0
 
 cp %{SOURCE1} %{mod_conf}
 
@@ -128,44 +130,11 @@ find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 find src examples -type f | xargs perl -pi -e "s|Net::BitTorrent::LibBTT|Net::BitTorrent::LibBT::Tracker|g"
 
 %build
-#export WANT_AUTOCONF_2_5=1
-#rm -f configure
-#libtoolize --copy --force; aclocal-1.7; autoconf; automake-1.7 --add-missing --gnu
-#autoreconf
-
-#%%configure2_5x --localstatedir=/var/lib \
-#    --with-apxs=%{_sbindir}/apxs \
-#    --with-xml-prefix=%{_prefix} \
-#    --with-bdb=%{_prefix} \
-#    --with-apr=%{_bindir}/apr-1-config \
-#    --with-makefilepl-args="INSTALLDIRS=vendor" \
-#    --with-modperl=%{_prefix} \
-#    --with-php-config=%{_bindir}/php-config \
-#    --with-docdir=%{_docdir}/%{name}-%{version}
-
-if [ -x %{_bindir}/apr-config ]; then APR=%{_bindir}/apr-config; fi
-if [ -x %{_bindir}/apr-1-config ]; then APR=%{_bindir}/apr-1-config; fi
-
-export CPPFLAGS=`$APR --cppflags`
-
-./configure \
- 	--prefix=%{_prefix} \
-	--exec-prefix=%{_exec_prefix} \
-	--bindir=%{_bindir} \
-	--sbindir=%{_sbindir} \
-	--sysconfdir=%{_sysconfdir} \
-	--datadir=%{_datadir} \
-	--includedir=%{_includedir} \
-	--libdir=%{_libdir} \
-	--libexecdir=%{_libexecdir} \
-	--localstatedir=/var/lib \
-	--sharedstatedir=%{_sharedstatedir} \
-	--mandir=%{_mandir} \
-	--infodir=%{_infodir} \
+%configure2_5x \
 	--with-apxs=%{_sbindir}/apxs \
 	--with-xml-prefix=%{_prefix} \
         --with-bdb=%{_prefix} \
-        --with-apr=$APR \
+        --with-apr=%{_bindir}/apr-1-config \
         --with-makefilepl-args="INSTALLDIRS=vendor" \
         --with-modperl=%{_prefix} \
         --with-php-config=%{_bindir}/php-config

@@ -17,6 +17,10 @@ Patch0:		mod_bt-we_are_at_apr1.diff
 Patch1:		mod_bt-0.0.19-bdb47_fix.diff
 Patch2:		mod_bt-0.0.19-db5.patch
 Patch3:		mod_bt-0.0.19-fix-str-fmt.patch
+# (proyvind): this project seems pretty dead since long time ago upstream, and
+# I'm too lazy to bother fixing it properly or have it removed from repos, so
+# just do it quick and dirty to make it build at least..
+Patch4:		mod_bt-0.0.19-quick-and-ugly-build-hackaround.patch
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -113,6 +117,7 @@ files.
 %patch1 -p0
 %patch2 -p0
 %patch3 -p0
+%patch4 -p1 -b .fugly~
 
 cp %{SOURCE1} %{mod_conf}
 
@@ -139,7 +144,7 @@ find src examples -type f | xargs perl -pi -e "s|Net::BitTorrent::LibBTT|Net::Bi
         --with-modperl=%{_prefix} \
         --with-php-config=%{_bindir}/php-config
 
-%make
+%make ACLOCAL=/bin/true AUTOMAKE=/bin/true
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -148,7 +153,7 @@ install -d %{buildroot}%{_libdir}/apache
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 install -d %{buildroot}%{_sysconfdir}/php.d
 
-%makeinstall_std
+%makeinstall_std ACLOCAL=/bin/true AUTOMAKE=/bin/true
 
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
 

@@ -1,0 +1,22 @@
+--- src/tools/bt_showmetainfo.c.str	2011-04-12 09:40:59.000000000 +0200
++++ src/tools/bt_showmetainfo.c	2011-04-12 09:41:11.000000000 +0200
+@@ -133,7 +133,7 @@
+     bt_metainfo*        torrent = NULL;
+     int i;
+ 
+-    printf(banner);
++    printf("%s",banner);
+     
+     if(argc < 2) {
+         printf(
+--- src/tools/btt_infohash.c.str	2011-04-12 09:41:20.000000000 +0200
++++ src/tools/btt_infohash.c	2011-04-12 09:41:32.000000000 +0200
+@@ -373,7 +373,7 @@
+         char* buf = NULL;
+         
+         btt_infohash2text(tracker->p, (btt_infohash*)hash_val.data, &buf);
+-        printf(buf);
++        printf("%s",buf);
+         
+         if(flag_opts & IOPT_DELETE) {
+             printf("This infohash has been deleted from the tracker.\n\n");

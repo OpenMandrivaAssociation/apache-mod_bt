@@ -1,0 +1,23 @@
+--- src/libbtutil/apr.h	2006-08-09 19:55:38.000000000 +0200
++++ src/libbtutil/apr.h.oden	2007-03-10 14:49:25.000000000 +0100
+@@ -1,20 +1,8 @@
+ #ifndef LIBBTUTIL_APR_H
+ #define LIBBTUTIL_APR_H
+ 
+-/* APRPL: Apahe Portability Runtime Portability Library ;-)
+- * mod_bt uses APR1's API, but we want to remain APR0-compatible.
+- */
+-
+ #include <apr.h>
+ #include <apr_network_io.h>
+ #include <apr_file_io.h>
+ 
+-#if APR_MAJOR_VERSION == 0
+-#define APR_FOPEN_READ APR_READ
+-#define APR_FOPEN_WRITE APR_WRITE
+-#define APR_FOPEN_TRUNCATE APR_TRUNCATE
+-#define APR_FPROT_OS_DEFAULT APR_OS_DEFAULT
+-#define apr_socket_create(a,b,c,d,e) apr_socket_create(a,b,c,e)
+-#endif
+-
+ #endif /* LIBBTUTIL_APR_H */

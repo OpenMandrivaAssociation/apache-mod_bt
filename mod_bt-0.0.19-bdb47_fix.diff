@@ -1,0 +1,15 @@
+--- src/libbttracker/tracker/btt_tracker_connect.c	2009-01-07 09:50:54.000000000 +0100
++++ src/libbttracker/tracker/btt_tracker_connect.c.oden	2009-01-07 09:55:29.000000000 +0100
+@@ -132,10 +132,10 @@ static int btt_tracker_connect_db_env(
+     if ((ret = btt_tracker_setup_env(tracker, dbenv)) != 0)
+         goto err;
+ 
+-    if ((ret = dbenv->set_flags(dbenv, DB_LOG_AUTOREMOVE, 1)) != 0) {
++    if ((ret = dbenv->set_flags(dbenv, DB_LOG_AUTO_REMOVE, 1)) != 0) {
+         dbenv->err(
+             dbenv, ret,
+-            "btt_tracker_connect_db_env(): set_flags(DB_LOG_AUTOREMOVE)"
++            "btt_tracker_connect_db_env(): set_flags(DB_LOG_AUTO_REMOVE)"
+         );
+         goto err;
+     }

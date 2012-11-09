@@ -1,0 +1,67 @@
+--- mod_bt-0.0.19/src/tests/Makefile.in.fugly~	2012-02-12 15:49:55.991608776 +0100
++++ mod_bt-0.0.19/src/tests/Makefile.in	2012-02-12 15:50:31.154596193 +0100
+@@ -181,7 +181,7 @@ LIBBTT_LIBS = @LIBBTT_LIBS@
+ LIBBT_INCLUDE = @LIBBT_INCLUDE@
+ LIBBT_LIBS = @LIBBT_LIBS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(APR_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+--- mod_bt-0.0.19/src/tools/Makefile.am.fugly~	2012-02-12 15:47:46.746653964 +0100
++++ mod_bt-0.0.19/src/tools/Makefile.am	2012-02-12 15:47:46.746653964 +0100
+@@ -8,10 +8,10 @@ btxmltracker_progs = btt_db2xml btt_xml2
+ btxmltracker_mans = btt_xml2db.8 btt_db2xml.8
+ 
+ btt_db2xml_SOURCES = btt_db2xml.c
+-btt_db2xml_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la @XML_LIBS@
++btt_db2xml_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la $(top_srcdir)/src/libbtutil/libbtutil.la @APR_LIBS@ @XML_LIBS@
+ 
+ btt_xml2db_SOURCES = btt_xml2db.c
+-btt_xml2db_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la @XML_LIBS@
++btt_xml2db_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la $(top_srcdir)/src/libbtutil/libbtutil.la @APR_LIBS@ @XML_LIBS@
+ 
+ endif
+ 
+@@ -43,7 +43,7 @@ btutil_progs = bt_showmetainfo
+ btutil_mans = bt_showmetainfo.1
+ 
+ bt_showmetainfo_SOURCES = bt_showmetainfo.c
+-bt_showmetainfo_LDADD = $(top_srcdir)/src/libbtutil/libbtutil.la
++bt_showmetainfo_LDADD = $(top_srcdir)/src/libbtutil/libbtutil.la $(APR_LIBS)
+ 
+ AM_CPPFLAGS=-I..
+ EXTRA_DIST = btt_xml2db.pod btt_db2xml.pod bt_showmetainfo.pod btt_infohash.pod
+--- mod_bt-0.0.19/src/tools/Makefile.in.fugly~	2012-02-12 15:47:46.747653964 +0100
++++ mod_bt-0.0.19/src/tools/Makefile.in	2012-02-12 15:49:01.400628068 +0100
+@@ -196,7 +196,7 @@ LIBBTT_LIBS = @LIBBTT_LIBS@
+ LIBBT_INCLUDE = @LIBBT_INCLUDE@
+ LIBBT_LIBS = @LIBBT_LIBS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(APR_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+@@ -284,9 +284,9 @@ target_alias = @target_alias@
+ @BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btxmltracker_progs = btt_db2xml btt_xml2db
+ @BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btxmltracker_mans = btt_xml2db.8 btt_db2xml.8
+ @BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_db2xml_SOURCES = btt_db2xml.c
+-@BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_db2xml_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la @XML_LIBS@
++@BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_db2xml_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la $(top_srcdir)/src/libbtutil/libbtutil.la @APR_LIBS@ @XML_LIBS@
+ @BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_xml2db_SOURCES = btt_xml2db.c
+-@BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_xml2db_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la @XML_LIBS@
++@BUILD_BDB_TRUE@@BUILD_LIBXML2_TRUE@btt_xml2db_LDADD = $(top_srcdir)/src/libbttracker/libbttracker.la $(top_srcdir)/src/libbtutil/libbtutil.la @APR_LIBS@ @XML_LIBS@
+ @BUILD_BDB_TRUE@bttracker_progs = $(btxmltracker_progs) btt_infohash
+ @BUILD_BDB_TRUE@bttracker_mans = $(btxmltracker_mans) btt_infohash.8
+ @BUILD_BDB_TRUE@btt_infohash_SOURCES = btt_infohash.c
+@@ -302,7 +302,7 @@ target_alias = @target_alias@
+ btutil_progs = bt_showmetainfo
+ btutil_mans = bt_showmetainfo.1
+ bt_showmetainfo_SOURCES = bt_showmetainfo.c
+-bt_showmetainfo_LDADD = $(top_srcdir)/src/libbtutil/libbtutil.la
++bt_showmetainfo_LDADD = $(top_srcdir)/src/libbtutil/libbtutil.la $(APR_LIBS)
+ AM_CPPFLAGS = -I..
+ EXTRA_DIST = btt_xml2db.pod btt_db2xml.pod bt_showmetainfo.pod btt_infohash.pod
+ @POD2MAN_TRUE@man_MANS = $(btutil_mans) $(bttracker_mans) $(btpeer_mans)

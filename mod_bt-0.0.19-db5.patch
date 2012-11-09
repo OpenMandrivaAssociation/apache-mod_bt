@@ -1,0 +1,33 @@
+--- acinclude.m4.bdb	2011-04-12 09:28:49.000000000 +0200
++++ acinclude.m4	2011-04-12 09:29:25.000000000 +0200
+@@ -410,7 +410,7 @@
+                 fprintf(stderr, "libdb-%i.%i found, but we have headers for %i.%i!\n",
+                         maj, min, DB_VERSION_MAJOR, DB_VERSION_MINOR);
+                 return 2;        
+-	} else if(maj >= MAJOR && min >= MINOR) {
++	} else if(maj > MAJOR || maj == MAJOR && min >= MINOR) {
+ 		return 0;
+         } else {
+ 		fprintf(stderr, "libdb-%i.%i found, %i.%i or greater required\n",
+--- config.mk.in.flags	2011-04-12 09:32:31.000000000 +0200
++++ config.mk.in	2011-04-12 09:32:57.000000000 +0200
+@@ -7,7 +7,7 @@
+ export PHP_CONFIG=@PHP_CONFIG@
+ export PHP=@PHP@
+ export CC=@CC@
+-export CFLAGS=@CFLAGS@ $(DEBUG_FLAGS) -Werror -Wall -Wimplicit-function-declaration
++export CFLAGS=@CFLAGS@ $(DEBUG_FLAGS) -Wimplicit-function-declaration
+ export CPPFLAGS=@CPPFLAGS@ -DBT_VERSION=\"@PACKAGE_VERSION@\" `$(APR_CONFIG) --cppflags --includes`
+ export LDSHARED=@CC@ -shared
+ export LDSTATIC=@CC@ -static
+--- configure.bdb	2011-04-12 09:37:23.000000000 +0200
++++ configure	2011-04-12 09:38:08.000000000 +0200
+@@ -20805,7 +20805,7 @@
+                 fprintf(stderr, "libdb-%i.%i found, but we have headers for %i.%i!\n",
+                         maj, min, DB_VERSION_MAJOR, DB_VERSION_MINOR);
+                 return 2;
+-	} else if(maj >= MAJOR && min >= MINOR) {
++	} else if(maj > MAJOR || maj == MAJOR && min >= MINOR) {
+ 		return 0;
+         } else {
+ 		fprintf(stderr, "libdb-%i.%i found, %i.%i or greater required\n",

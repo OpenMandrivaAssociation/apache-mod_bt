@@ -10,7 +10,7 @@ Version:	0.0.19
 Release:	25
 Group:		System/Servers
 License:	Apache License
-URL:		http://www.crackerjack.net/mod_bt/
+URL:		https://www.crackerjack.net/mod_bt/
 Source0:	http://www.crackerjack.net/mod_bt/%{mod_name}-%{version}.tar.bz2
 Source1:	%{mod_conf}
 Patch0:		mod_bt-we_are_at_apr1.diff
